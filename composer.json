@@ -1,0 +1,15 @@
+{
+    "name": "miguelheitor/basket",
+    "authors": [
+        {
+            "name": "Miguel Heitor",
+            "email": "miguelheitor@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Basket\\": "src/"
+        }
+    }
+}
