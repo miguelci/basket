@@ -1,6 +1,7 @@
 <?php
 
 namespace Basket\Events;
+
 use Ramsey\Uuid\Uuid;
 
 /**
