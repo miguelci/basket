@@ -11,8 +11,15 @@
 namespace Basket\Objects;
 
 
+use Ramsey\Uuid\Uuid;
+
 class Product
 {
+
+    /**
+     * @var string
+     */
+    private $id;
 
     /**
      * @var string
@@ -32,8 +39,17 @@ class Product
      */
     public function __construct($name, $price)
     {
+        $this->id    = Uuid::uuid4()->toString();
         $this->name  = $name;
         $this->price = $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

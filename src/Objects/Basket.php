@@ -35,7 +35,7 @@ class Basket
      */
     public function __construct()
     {
-        $this->basketId   = Uuid::uuid4();
+        $this->basketId   = Uuid::uuid4()->toString();
         $this->products   = [];
         $this->totalPrice = 0;
     }
@@ -94,8 +94,8 @@ class Basket
      */
     public function addProductToBasket($product)
     {
-        $this->products[] = $product;
-        $this->totalPrice += $product->getPrice();
+        $this->products[$product->getId()] = $product;
+        $this->totalPrice                  += $product->getPrice();
     }
 
     /**
@@ -103,7 +103,7 @@ class Basket
      */
     public function removeProductFromBasket($product)
     {
-        $aux = $this->getProductIndex($product->getName());
+        $aux = $this->getProductIndex($product);
 
         if ($aux !== null) {
             array_splice($this->products, $aux, 1);
@@ -124,17 +124,18 @@ class Basket
     }
 
     /**
-     * @param string $productName
+     * @param Product $product
      *
      * @return int | null
      */
-    private function getProductIndex($productName)
+    private function getProductIndex($product)
     {
-        foreach ($this->products as $key => $product) {
-            if ($product->getName() === $productName) {
-                return $key;
-            }
+        $id = $product->getId();
+
+        if ($id !== null) {
+            return $this->products[$id];
         }
+
         return null;
     }
 
