@@ -6,7 +6,9 @@
             "email": "miguelheitor@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "ramsey/uuid": "^3.7"
+    },
     "autoload": {
         "psr-4": {
             "Basket\\": "src/"

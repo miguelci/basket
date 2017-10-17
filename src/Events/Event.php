@@ -1,6 +1,7 @@
 <?php
 
 namespace Basket\Events;
+use Ramsey\Uuid\Uuid;
 
 /**
  * FutureFuel
@@ -27,7 +28,7 @@ abstract class Event
      */
     public function __construct()
     {
-        $this->id = md5(sha1("nw2626#$#/nseo$#" . rand(200000 , 999999)));
+        $this->id = Uuid::uuid4();
     }
 
     /**

@@ -11,6 +11,8 @@
 namespace Basket\Objects;
 
 
+use Ramsey\Uuid\Uuid;
+
 class Basket
 {
     /**
@@ -33,7 +35,7 @@ class Basket
      */
     public function __construct()
     {
-        $this->basketId   = md5(sha1("noinafaDAWDadanwdiawdoanwdoianw2626#$#/nseo$#"));
+        $this->basketId   = Uuid::uuid4();
         $this->products   = [];
         $this->totalPrice = 0;
     }
