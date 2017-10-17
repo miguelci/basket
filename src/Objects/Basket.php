@@ -103,10 +103,8 @@ class Basket
      */
     public function removeProductFromBasket($product)
     {
-        $aux = $this->getProductIndex($product);
-
-        if ($aux !== null) {
-            array_splice($this->products, $aux, 1);
+        if ($product !== null) {
+            unset($this->products[$product->getId()]);
             $this->totalPrice -= $product->getPrice();
         }
     }
@@ -122,22 +120,5 @@ class Basket
             }
         }
     }
-
-    /**
-     * @param Product $product
-     *
-     * @return int | null
-     */
-    private function getProductIndex($product)
-    {
-        $id = $product->getId();
-
-        if ($id !== null) {
-            return $this->products[$id];
-        }
-
-        return null;
-    }
-
 
 }
