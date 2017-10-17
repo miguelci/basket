@@ -70,4 +70,46 @@ class BasketEventTest extends TestCase
         $this->assertEquals(0, count($basket->getProducts()));
     }
 
+    /**
+     * Test the price of a basket after a product is added
+     */
+    public function testBasketPriceOnAddedProduct()
+    {
+        $price = 100;
+
+        $basket  = new Basket();
+        $events  = EventBusFactory::makeEventBus();
+        $product = new Product('Mouse', $price);
+        $events->addEvent(new AddProductToBasket($basket, $product));
+
+        $this->assertEquals($price, $basket->getTotalPrice());
+    }
+
+    /**
+     * Test the price of a basket after a product is added and removed
+     */
+    public function testBasketPriceOnAddedRemovedProduct()
+    {
+        $basket  = new Basket();
+        $events  = EventBusFactory::makeEventBus();
+        $product = new Product('Mouse', 100);
+        $events->addEvent(new AddProductToBasket($basket, $product));
+        $events->addEvent(new RemoveProductFromBasket($basket, $product));
+
+        $this->assertEquals(0, $basket->getTotalPrice());
+    }
+
+    /**
+     * Test the price of a basket after a product is added and removed
+     */
+    public function testBasketPriceOnRemovingProductFromEmptyBasket()
+    {
+        $basket  = new Basket();
+        $events  = EventBusFactory::makeEventBus();
+        $product = new Product('Mouse', 100);
+        $events->addEvent(new RemoveProductFromBasket($basket, $product));
+
+        $this->assertEquals(0, $basket->getTotalPrice());
+    }
+
 }

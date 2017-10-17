@@ -103,7 +103,7 @@ class Basket
      */
     public function removeProductFromBasket($product)
     {
-        if ($product !== null) {
+        if ($product !== null && isset($this->products[$product->getId()])) {
             unset($this->products[$product->getId()]);
             $this->totalPrice -= $product->getPrice();
         }
