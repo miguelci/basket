@@ -1,6 +1,7 @@
 <?php
 
 namespace Basket\Events;
+
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -28,7 +29,7 @@ abstract class Event
      */
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        $this->id = Uuid::uuid4()->toString();
     }
 
     /**
