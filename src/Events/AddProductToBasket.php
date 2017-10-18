@@ -14,7 +14,7 @@ namespace Basket\Events;
 use Basket\Objects\Basket;
 use Basket\Objects\Product;
 
-class AddProductToBasket extends Event
+class AddProductToBasket extends DomainEvent
 {
 
     /**
