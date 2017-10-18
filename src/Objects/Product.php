@@ -11,6 +11,8 @@
 namespace Basket\Objects;
 
 
+use Money\Currency;
+use Money\Money;
 use Ramsey\Uuid\Uuid;
 
 class Product
@@ -27,7 +29,7 @@ class Product
     private $name;
 
     /**
-     * @var int
+     * @var Money
      */
     private $price;
 
@@ -35,13 +37,13 @@ class Product
      * Product constructor.
      *
      * @param string $name  The name of the product.
-     * @param int    $price The price of the product.
+     * @param string $price The price of the product.
      */
     public function __construct($name, $price)
     {
         $this->id    = Uuid::uuid4()->toString();
         $this->name  = $name;
-        $this->price = $price;
+        $this->price = new Money($price, new Currency('EUR'));
     }
 
     /**
@@ -69,19 +71,11 @@ class Product
     }
 
     /**
-     * @return int
+     * @return Money
      */
     public function getPrice()
     {
         return $this->price;
-    }
-
-    /**
-     * @param int $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
     }
 
 }

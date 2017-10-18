@@ -38,7 +38,7 @@ class BasketEventTest extends TestCase
     {
         $basket = new Basket();
         $events = EventBusFactory::makeEventBus();
-        $events->addEvent(new AddProductToBasket($basket, new Product('Mouse', 100)));
+        $events->addEvent(new AddProductToBasket($basket, new Product('Mouse', '100')));
 
         $this->assertEquals(1, count($basket->getProducts()));
     }
@@ -50,7 +50,7 @@ class BasketEventTest extends TestCase
     {
         $basket  = new Basket();
         $events  = EventBusFactory::makeEventBus();
-        $product = new Product('Mouse', 100);
+        $product = new Product('Mouse', '100');
         $events->addEvent(new AddProductToBasket($basket, $product));
         $events->addEvent(new RemoveProductFromBasket($basket, $product));
 
@@ -64,7 +64,7 @@ class BasketEventTest extends TestCase
     {
         $basket  = new Basket();
         $events  = EventBusFactory::makeEventBus();
-        $product = new Product('Mouse', 100);
+        $product = new Product('Mouse', '100');
         $events->addEvent(new RemoveProductFromBasket($basket, $product));
 
         $this->assertEquals(0, count($basket->getProducts()));
@@ -75,7 +75,7 @@ class BasketEventTest extends TestCase
      */
     public function testBasketPriceOnAddedProduct()
     {
-        $price = 100;
+        $price = '100';
 
         $basket  = new Basket();
         $events  = EventBusFactory::makeEventBus();
@@ -92,11 +92,11 @@ class BasketEventTest extends TestCase
     {
         $basket  = new Basket();
         $events  = EventBusFactory::makeEventBus();
-        $product = new Product('Mouse', 100);
+        $product = new Product('Mouse', '100');
         $events->addEvent(new AddProductToBasket($basket, $product));
         $events->addEvent(new RemoveProductFromBasket($basket, $product));
 
-        $this->assertEquals(0, $basket->getTotalPrice());
+        $this->assertEquals('0', $basket->getTotalPrice());
     }
 
     /**
@@ -106,10 +106,10 @@ class BasketEventTest extends TestCase
     {
         $basket  = new Basket();
         $events  = EventBusFactory::makeEventBus();
-        $product = new Product('Mouse', 100);
+        $product = new Product('Mouse', '100');
         $events->addEvent(new RemoveProductFromBasket($basket, $product));
 
-        $this->assertEquals(0, $basket->getTotalPrice());
+        $this->assertEquals('0', $basket->getTotalPrice());
     }
 
 }

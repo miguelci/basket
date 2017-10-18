@@ -11,6 +11,8 @@
 namespace Basket\Objects;
 
 
+use Money\Currency;
+use Money\Money;
 use Ramsey\Uuid\Uuid;
 
 class Basket
@@ -26,7 +28,7 @@ class Basket
     private $products;
 
     /**
-     * @var int
+     * @var Money
      */
     private $totalPrice;
 
@@ -37,7 +39,7 @@ class Basket
     {
         $this->basketId   = Uuid::uuid4()->toString();
         $this->products   = [];
-        $this->totalPrice = 0;
+        $this->totalPrice = new Money(0, new Currency('EUR'));
     }
 
 
@@ -74,19 +76,11 @@ class Basket
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getTotalPrice()
     {
-        return $this->totalPrice;
-    }
-
-    /**
-     * @param int $totalPrice
-     */
-    public function setTotalPrice($totalPrice)
-    {
-        $this->totalPrice = $totalPrice;
+        return $this->totalPrice->getAmount();
     }
 
     /**
@@ -95,7 +89,7 @@ class Basket
     public function addProductToBasket($product)
     {
         $this->products[$product->getId()] = $product;
-        $this->totalPrice                  += $product->getPrice();
+        $this->totalPrice                  = $this->totalPrice->add($product->getPrice());
     }
 
     /**
@@ -105,19 +99,7 @@ class Basket
     {
         if ($product !== null && isset($this->products[$product->getId()])) {
             unset($this->products[$product->getId()]);
-            $this->totalPrice -= $product->getPrice();
-        }
-    }
-
-    /**
-     * Update the total price of the basket if needed.
-     */
-    public function updateBasketPrice()
-    {
-        if (!empty($this->products)) {
-            foreach ($this->products as $product) {
-                $this->totalPrice += $product->getPrice();
-            }
+            $this->totalPrice = $this->totalPrice->subtract($product->getPrice());
         }
     }
 
