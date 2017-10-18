@@ -13,7 +13,7 @@ namespace Basket\Events;
 
 use Basket\Objects\Basket;
 
-class CreateBasket extends DomainEvent implements Event
+class CreateBasket extends DomainEvent
 {
 
     /**
@@ -27,7 +27,6 @@ class CreateBasket extends DomainEvent implements Event
         $this->name   = "CreateBasket";
         $this->basket = $basket;
     }
-
 
     /**
      * Will execute the needed function for each event.

@@ -3,6 +3,7 @@
 namespace Basket\EventBus;
 
 use Basket\Events\DomainEvent;
+use Basket\Events\Event;
 
 /**
  * FutureFuel

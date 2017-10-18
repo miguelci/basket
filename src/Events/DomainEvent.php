@@ -12,7 +12,7 @@ use Ramsey\Uuid\Uuid;
  *
  * Miguel Heitor - miguel@futurefuel.io
  */
-class DomainEvent
+abstract class DomainEvent implements Event
 {
     /**
      * @var string
