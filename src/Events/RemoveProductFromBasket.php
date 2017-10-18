@@ -14,7 +14,7 @@ namespace Basket\Events;
 use Basket\Objects\Basket;
 use Basket\Objects\Product;
 
-class RemoveProductFromBasket extends DomainEven
+class RemoveProductFromBasket extends DomainEvent implements Event
 {
 
     /**
@@ -36,7 +36,7 @@ class RemoveProductFromBasket extends DomainEven
     public function __construct($basket, $product)
     {
         parent::__construct();
-        $this->name = 'RemovedProductFromBasket';
+        $this->name    = 'RemovedProductFromBasket';
         $this->basket  = $basket;
         $this->product = $product;
     }
@@ -62,7 +62,7 @@ class RemoveProductFromBasket extends DomainEven
             'basket_id'     => $this->basket->getBasketId(),
             'product_name'  => $this->product->getName(),
             'product_price' => $this->product->getPrice(),
-            'date' => date('Y-m-d H:i:s')
+            'date'          => date('Y-m-d H:i:s')
         ]);
     }
 }

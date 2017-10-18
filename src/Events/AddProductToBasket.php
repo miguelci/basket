@@ -14,7 +14,7 @@ namespace Basket\Events;
 use Basket\Objects\Basket;
 use Basket\Objects\Product;
 
-class AddProductToBasket extends DomainEvent
+class AddProductToBasket extends DomainEvent implements Event
 {
 
     /**
@@ -59,7 +59,7 @@ class AddProductToBasket extends DomainEvent
             'basket_id'     => $this->basket->getBasketId(),
             'product_name'  => $this->product->getName(),
             'product_price' => $this->product->getPrice(),
-            'date' => date('Y-m-d H:i:s')
+            'date'          => date('Y-m-d H:i:s')
         ]);
     }
 }

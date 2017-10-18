@@ -2,7 +2,7 @@
 
 namespace Basket\EventBus;
 
-use Basket\Events\Event;
+use Basket\Events\DomainEvent;
 
 /**
  * FutureFuel
@@ -16,7 +16,7 @@ class EventBus
 {
 
     /**
-     * @var Event[]
+     * @var DomainEvent[]
      */
     private $events;
 
@@ -29,9 +29,9 @@ class EventBus
     }
 
     /**
-     * @param Event $event
+     * @param DomainEvent $event
      */
-    public function addEvent(Event $event)
+    public function addEvent(DomainEvent $event)
     {
         $event->apply();
 

@@ -13,7 +13,7 @@ namespace Basket\Events;
 
 use Basket\Objects\Basket;
 
-class CreateBasket extends DomainEvent
+class CreateBasket extends DomainEvent implements Event
 {
 
     /**
