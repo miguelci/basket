@@ -5,14 +5,7 @@ namespace Basket\EventBus;
 use Basket\Events\DomainEvent;
 use Basket\Events\Event;
 
-/**
- * FutureFuel
- *
- * EventBus.php
- * Created on 10/10/17
- *
- * Miguel Heitor - miguel@futurefuel.io
- */
+
 class EventBus
 {
 

@@ -4,14 +4,6 @@ namespace Basket\Events;
 
 use Ramsey\Uuid\Uuid;
 
-/**
- * FutureFuel
- *
- * Event.php
- * Created on 10/10/17
- *
- * Miguel Heitor - miguel@futurefuel.io
- */
 abstract class DomainEvent implements Event
 {
     /**

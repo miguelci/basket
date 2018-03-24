@@ -9,14 +9,6 @@ use Basket\Objects\Basket;
 use Basket\Objects\Product;
 use PHPUnit\Framework\TestCase;
 
-/**
- * FutureFuel
- *
- * BasketTest.php
- * Created on 17/10/17
- *
- * Miguel Heitor - miguel@futurefuel.io
- */
 
 /**
  * Class BasketTest
@@ -60,7 +52,7 @@ class BasketEventTest extends TestCase
     /**
      * Test if a product is added and removed from a basket, it won't have any product
      */
-    public function testRemoveFromEmptyBasketDoesntShowError()
+    public function testRemoveFromEmptyBasketDoesNotShowError()
     {
         $basket  = new Basket();
         $events  = EventBusFactory::makeEventBus();

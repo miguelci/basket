@@ -1,12 +1,4 @@
 <?php
-/**
- * FutureFuel
- *
- * app.php
- * Created on 10/10/17
- *
- * Miguel Heitor - miguel@futurefuel.io
- */
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -32,8 +24,8 @@ $eventBus->addEvent(new \Basket\Events\RemoveProductFromBasket($basket, $compute
 $eventBus->addEvent(new \Basket\Events\AddProductToBasket($basket, $headphones));
 
 
-print_r($eventBus->serialize());
+//print_r($eventBus->serialize());
 
-print_r($basket->getProducts());
+//print_r($basket->getProducts());
 
 print_r($basket->getTotalPrice() . PHP_EOL);
