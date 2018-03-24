@@ -28,7 +28,7 @@ class AddProductToBasket extends DomainEvent implements Event
     public function __construct($basket, $product)
     {
         parent::__construct();
-        $this->name    = "AddedProductToBasket";
+        $this->name    = __CLASS__;
         $this->basket  = $basket;
         $this->product = $product;
     }
@@ -46,12 +46,12 @@ class AddProductToBasket extends DomainEvent implements Event
     public function serialize()
     {
         return json_encode([
-            'id'            => $this->id,
-            'name'          => $this->name,
-            'basket_id'     => $this->basket->getBasketId(),
-            'product_name'  => $this->product->getName(),
+            'id' => $this->id,
+            'name' => $this->name,
+            'basket_id' => $this->basket->getBasketId(),
+            'product_name' => $this->product->getName(),
             'product_price' => $this->product->getPrice(),
-            'date'          => date('Y-m-d H:i:s')
+            'date' => date('Y-m-d H:i:s')
         ]);
     }
 }

@@ -17,7 +17,7 @@ class CreateBasket extends DomainEvent
     public function __construct($basket)
     {
         parent::__construct();
-        $this->name   = "CreateBasket";
+        $this->name   = __CLASS__;
         $this->basket = $basket;
     }
 
@@ -37,7 +37,8 @@ class CreateBasket extends DomainEvent
     public function serialize()
     {
         return json_encode([
-            'id'   => $this->id,
+            'id' => $this->id,
+            'basket' => $this->basket->getBasketId(),
             'name' => $this->name,
             'date' => date('Y-m-d H:i:s')
         ]);
