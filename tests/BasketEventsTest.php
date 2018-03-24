@@ -2,6 +2,7 @@
 
 namespace Basket\Tests;
 
+use Basket\EventBus\EventBus;
 use Basket\EventBus\EventBusFactory;
 use Basket\Events\AddProductToBasket;
 use Basket\Events\RemoveProductFromBasket;
@@ -21,6 +22,11 @@ class BasketEventTest extends TestCase
     public function testCanBeInitialized()
     {
         $this->assertInstanceOf(Basket::class, new Basket());
+    }
+
+    public function testEventsCanBeInitialized()
+    {
+        $this->assertInstanceOf(EventBus::class, EventBusFactory::makeEventBus());
     }
 
     /**

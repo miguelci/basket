@@ -43,13 +43,6 @@ class Basket
         return $this->basketId;
     }
 
-    /**
-     * @param string $basketId
-     */
-    public function setBasketId($basketId)
-    {
-        $this->basketId = $basketId;
-    }
 
     /**
      * @return Product[]
@@ -57,14 +50,6 @@ class Basket
     public function getProducts()
     {
         return $this->products;
-    }
-
-    /**
-     * @param Product[] $products
-     */
-    public function setProducts($products)
-    {
-        $this->products = $products;
     }
 
     /**
