@@ -26,7 +26,7 @@ class CreateBasket extends DomainEvent
      */
     public function apply()
     {
-        // TODO: Implement apply() method.
+        // With storage, this would pass the info of the new basket to it.
     }
 
     /**

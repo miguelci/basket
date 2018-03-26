@@ -33,6 +33,9 @@ class AddProductToBasket extends DomainEvent implements Event
         $this->product = $product;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function apply()
     {
         $this->basket->addProductToBasket($this->product);
