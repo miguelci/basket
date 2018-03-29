@@ -19,6 +19,19 @@ use PHPUnit\Framework\TestCase;
 class BasketEventTest extends TestCase
 {
 
+    const PRICE = '100';
+
+    private $basket;
+    private $events;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->basket = new Basket();
+        $this->events = EventBusFactory::makeEventBus();
+    }
+
     public function testCanBeInitialized()
     {
         $this->assertInstanceOf(Basket::class, new Basket());
@@ -29,16 +42,14 @@ class BasketEventTest extends TestCase
         $this->assertInstanceOf(EventBus::class, EventBusFactory::makeEventBus());
     }
 
+
     /**
      * Test if a product is added to a basket, it will only have one product
      */
     public function testAddToBasket()
     {
-        $basket = new Basket();
-        $events = EventBusFactory::makeEventBus();
-        $events->addEvent(new AddProductToBasket($basket, new Product('Mouse', '100')));
-
-        $this->assertEquals(1, count($basket->getProducts()));
+        $this->events->addEvent(new AddProductToBasket($this->basket, new Product('Mouse', self::PRICE)));
+        $this->assertEquals(1, count($this->basket->getProducts()));
     }
 
     /**
@@ -46,13 +57,11 @@ class BasketEventTest extends TestCase
      */
     public function testAddRemoveFromBasket()
     {
-        $basket  = new Basket();
-        $events  = EventBusFactory::makeEventBus();
-        $product = new Product('Mouse', '100');
-        $events->addEvent(new AddProductToBasket($basket, $product));
-        $events->addEvent(new RemoveProductFromBasket($basket, $product));
+        $product = new Product('Mouse', self::PRICE);
+        $this->events->addEvent(new AddProductToBasket($this->basket, $product));
+        $this->events->addEvent(new RemoveProductFromBasket($this->basket, $product));
 
-        $this->assertEquals(0, count($basket->getProducts()));
+        $this->assertEquals(0, count($this->basket->getProducts()));
     }
 
     /**
@@ -60,12 +69,10 @@ class BasketEventTest extends TestCase
      */
     public function testRemoveFromEmptyBasketDoesNotShowError()
     {
-        $basket  = new Basket();
-        $events  = EventBusFactory::makeEventBus();
-        $product = new Product('Mouse', '100');
-        $events->addEvent(new RemoveProductFromBasket($basket, $product));
+        $product = new Product('Mouse', self::PRICE);
+        $this->events->addEvent(new RemoveProductFromBasket($this->basket, $product));
 
-        $this->assertEquals(0, count($basket->getProducts()));
+        $this->assertEquals(0, count($this->basket->getProducts()));
     }
 
     /**
@@ -73,14 +80,12 @@ class BasketEventTest extends TestCase
      */
     public function testBasketPriceOnAddedProduct()
     {
-        $price = '100';
+        $price = self::PRICE;
 
-        $basket  = new Basket();
-        $events  = EventBusFactory::makeEventBus();
         $product = new Product('Mouse', $price);
-        $events->addEvent(new AddProductToBasket($basket, $product));
+        $this->events->addEvent(new AddProductToBasket($this->basket, $product));
 
-        $this->assertEquals($price, $basket->getTotalPrice());
+        $this->assertEquals($price, $this->basket->getTotalPrice());
     }
 
     /**
@@ -88,13 +93,11 @@ class BasketEventTest extends TestCase
      */
     public function testBasketPriceOnAddedRemovedProduct()
     {
-        $basket  = new Basket();
-        $events  = EventBusFactory::makeEventBus();
-        $product = new Product('Mouse', '100');
-        $events->addEvent(new AddProductToBasket($basket, $product));
-        $events->addEvent(new RemoveProductFromBasket($basket, $product));
+        $product = new Product('Mouse', self::PRICE);
+        $this->events->addEvent(new AddProductToBasket($this->basket, $product));
+        $this->events->addEvent(new RemoveProductFromBasket($this->basket, $product));
 
-        $this->assertEquals('0', $basket->getTotalPrice());
+        $this->assertEquals('0', $this->basket->getTotalPrice());
     }
 
     /**
@@ -102,12 +105,10 @@ class BasketEventTest extends TestCase
      */
     public function testBasketPriceOnRemovingProductFromEmptyBasket()
     {
-        $basket  = new Basket();
-        $events  = EventBusFactory::makeEventBus();
-        $product = new Product('Mouse', '100');
-        $events->addEvent(new RemoveProductFromBasket($basket, $product));
+        $product = new Product('Mouse', self::PRICE);
+        $this->events->addEvent(new RemoveProductFromBasket($this->basket, $product));
 
-        $this->assertEquals('0', $basket->getTotalPrice());
+        $this->assertEquals('0', $this->basket->getTotalPrice());
     }
 
 }
