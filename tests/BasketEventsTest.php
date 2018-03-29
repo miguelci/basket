@@ -21,7 +21,14 @@ class BasketEventTest extends TestCase
 
     const PRICE = '100';
 
+    /**
+     * @var Basket
+     */
     private $basket;
+
+    /**
+     * @var EventBus
+     */
     private $events;
 
     public function setUp()
@@ -49,7 +56,7 @@ class BasketEventTest extends TestCase
     public function testAddToBasket()
     {
         $this->events->addEvent(new AddProductToBasket($this->basket, new Product('Mouse', self::PRICE)));
-        $this->assertEquals(1, count($this->basket->getProducts()));
+        $this->assertEquals(1, $this->basket->getTotalProducts());
     }
 
     /**
@@ -61,7 +68,7 @@ class BasketEventTest extends TestCase
         $this->events->addEvent(new AddProductToBasket($this->basket, $product));
         $this->events->addEvent(new RemoveProductFromBasket($this->basket, $product));
 
-        $this->assertEquals(0, count($this->basket->getProducts()));
+        $this->assertEquals(0, $this->basket->getTotalProducts());
     }
 
     /**
@@ -72,7 +79,7 @@ class BasketEventTest extends TestCase
         $product = new Product('Mouse', self::PRICE);
         $this->events->addEvent(new RemoveProductFromBasket($this->basket, $product));
 
-        $this->assertEquals(0, count($this->basket->getProducts()));
+        $this->assertEquals(0, $this->basket->getTotalProducts());
     }
 
     /**
@@ -86,6 +93,7 @@ class BasketEventTest extends TestCase
         $this->events->addEvent(new AddProductToBasket($this->basket, $product));
 
         $this->assertEquals($price, $this->basket->getTotalPrice());
+        $this->assertEquals(1, $this->basket->getTotalProducts());
     }
 
     /**

@@ -53,6 +53,14 @@ class Basket
     }
 
     /**
+     * @return Product[]
+     */
+    public function getTotalProducts()
+    {
+        return count($this->products);
+    }
+
+    /**
      * @return string
      */
     public function getTotalPrice()
