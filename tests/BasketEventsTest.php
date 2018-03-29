@@ -101,7 +101,7 @@ class BasketEventTest extends TestCase
     }
 
     /**
-     * Test the price of a basket after a product is added and removed
+     * Test the price of a basket after a product is removed from an empty basket
      */
     public function testBasketPriceOnRemovingProductFromEmptyBasket()
     {
