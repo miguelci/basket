@@ -1,21 +1,23 @@
 {
-    "name": "miguelheitor/basket",
-    "authors": [
-        {
-            "name": "Miguel Heitor",
-            "email": "miguelheitor@gmail.com"
-        }
-    ],
-    "require": {
-        "ramsey/uuid": "^3.7",
-        "moneyphp/money": "^3.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Basket\\": "src/"
-        }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^5.7"
+  "name": "miguelheitor/basket",
+  "authors": [
+    {
+      "name": "Miguel Heitor",
+      "email": "miguelheitor@gmail.com"
     }
+  ],
+  "require": {
+    "php": "^7.2",
+    "moneyphp/money": "^3.2",
+    "ramsey/uuid": "^3.8",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Basket\\": "src/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7"
+  }
 }

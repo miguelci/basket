@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Basket\Events;
 
@@ -6,19 +7,12 @@ use Ramsey\Uuid\Uuid;
 
 abstract class DomainEvent implements Event
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $id;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $name;
 
-    /**
-     * Event constructor.
-     */
     public function __construct()
     {
         $this->id = Uuid::uuid4()->toString();

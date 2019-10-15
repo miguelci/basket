@@ -1,52 +1,33 @@
 <?php
+declare(strict_types=1);
 
 namespace Basket\Events;
-
 
 use Basket\Objects\Basket;
 use Basket\Objects\Product;
 
 class RemoveProductFromBasket extends DomainEvent
 {
-
-    /**
-     * @var Basket
-     */
+    /** @var Basket */
     private $basket;
 
-    /**
-     * @var Product
-     */
+    /** @var Product */
     private $product;
 
-    /**
-     * RemoveProductFromBasket constructor.
-     *
-     * @param Basket  $basket
-     * @param Product $product
-     */
-    public function __construct($basket, $product)
+    public function __construct(Basket $basket, Product $product)
     {
         parent::__construct();
-        $this->name    = __CLASS__;
-        $this->basket  = $basket;
+        $this->name = __CLASS__;
+        $this->basket = $basket;
         $this->product = $product;
     }
 
-    /**
-     * Will execute the needed function for each event.
-     */
-    public function apply()
+    public function apply(): void
     {
         $this->basket->removeProductFromBasket($this->product);
     }
 
-    /**
-     * Returns the object in a readable way
-     *
-     * @return string
-     */
-    public function serialize()
+    public function serialize(): string
     {
         return json_encode([
             'id' => $this->id,

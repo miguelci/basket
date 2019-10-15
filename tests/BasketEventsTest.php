@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Basket\Tests;
 
@@ -10,59 +11,40 @@ use Basket\Objects\Basket;
 use Basket\Objects\Product;
 use PHPUnit\Framework\TestCase;
 
-
-/**
- * Class BasketTest
- * @package Basket\Tests
- * @covers  Basket
- */
 class BasketEventTest extends TestCase
 {
 
     const PRICE = '100';
 
-    /**
-     * @var Basket
-     */
+    /** @var Basket */
     private $basket;
 
-    /**
-     * @var EventBus
-     */
+    /** @var EventBus */
     private $events;
 
     public function setUp()
     {
-        parent::setUp();
-
         $this->basket = new Basket();
         $this->events = EventBusFactory::makeEventBus();
     }
 
-    public function testCanBeInitialized()
+    public function testCanBeInitialized(): void
     {
         $this->assertInstanceOf(Basket::class, new Basket());
     }
 
-    public function testEventsCanBeInitialized()
+    public function testEventsCanBeInitialized(): void
     {
         $this->assertInstanceOf(EventBus::class, EventBusFactory::makeEventBus());
     }
 
-
-    /**
-     * Test if a product is added to a basket, it will only have one product
-     */
-    public function testAddToBasket()
+    public function testAddToBasketResultsIntoOneProductInTheBasket(): void
     {
         $this->events->addEvent(new AddProductToBasket($this->basket, new Product('Mouse', self::PRICE)));
         $this->assertEquals(1, $this->basket->getTotalProducts());
     }
 
-    /**
-     * Test if a product is added and removed from a basket, it won't have any product
-     */
-    public function testAddRemoveFromBasket()
+    public function testAddingAndRemovingFromBasket(): void
     {
         $product = new Product('Mouse', self::PRICE);
         $this->events->addEvent(new AddProductToBasket($this->basket, $product));
@@ -71,10 +53,7 @@ class BasketEventTest extends TestCase
         $this->assertEquals(0, $this->basket->getTotalProducts());
     }
 
-    /**
-     * Test if a product is added and removed from a basket, it won't have any product
-     */
-    public function testRemoveFromEmptyBasketDoesNotShowError()
+    public function testRemoveFromEmptyBasketDoesNotShowError(): void
     {
         $product = new Product('Mouse', self::PRICE);
         $this->events->addEvent(new RemoveProductFromBasket($this->basket, $product));
@@ -82,24 +61,16 @@ class BasketEventTest extends TestCase
         $this->assertEquals(0, $this->basket->getTotalProducts());
     }
 
-    /**
-     * Test the price of a basket after a product is added
-     */
-    public function testBasketPriceOnAddedProduct()
+    public function testBasketPriceOnAddedProduct(): void
     {
-        $price = self::PRICE;
-
-        $product = new Product('Mouse', $price);
+        $product = new Product('Mouse', self::PRICE);
         $this->events->addEvent(new AddProductToBasket($this->basket, $product));
 
-        $this->assertEquals($price, $this->basket->getTotalPrice());
+        $this->assertEquals(self::PRICE, $this->basket->getTotalPrice());
         $this->assertEquals(1, $this->basket->getTotalProducts());
     }
 
-    /**
-     * Test the price of a basket after a product is added and removed
-     */
-    public function testBasketPriceOnAddedRemovedProduct()
+    public function testBasketPriceOnAddedAndRemovedProduct(): void
     {
         $product = new Product('Mouse', self::PRICE);
         $this->events->addEvent(new AddProductToBasket($this->basket, $product));
@@ -108,15 +79,11 @@ class BasketEventTest extends TestCase
         $this->assertEquals('0', $this->basket->getTotalPrice());
     }
 
-    /**
-     * Test the price of a basket after a product is removed from an empty basket
-     */
-    public function testBasketPriceOnRemovingProductFromEmptyBasket()
+    public function testBasketPriceOnRemovingProductFromEmptyBasket(): void
     {
         $product = new Product('Mouse', self::PRICE);
         $this->events->addEvent(new RemoveProductFromBasket($this->basket, $product));
 
         $this->assertEquals('0', $this->basket->getTotalPrice());
     }
-
 }

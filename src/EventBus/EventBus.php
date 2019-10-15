@@ -1,31 +1,21 @@
 <?php
+declare(strict_types=1);
 
 namespace Basket\EventBus;
 
 use Basket\Events\DomainEvent;
-use Basket\Events\Event;
-
 
 class EventBus
 {
-
-    /**
-     * @var DomainEvent[]
-     */
+    /** @var DomainEvent[] */
     private $events;
 
-    /**
-     * EventBus constructor.
-     */
     public function __construct()
     {
         $this->events = [];
     }
 
-    /**
-     * @param DomainEvent $event
-     */
-    public function addEvent(DomainEvent $event)
+    public function addEvent(DomainEvent $event): void
     {
         $event->apply();
 
@@ -35,12 +25,7 @@ class EventBus
         ];
     }
 
-    /**
-     * Returns with the current events on the event bus
-     *
-     * @return string
-     */
-    public function serialize()
+    public function serialize(): string
     {
         return print_r($this->events, true);
     }

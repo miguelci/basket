@@ -1,40 +1,28 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Basket\Events;
-
 
 use Basket\Objects\Basket;
 
 class CreateBasket extends DomainEvent
 {
-
-    /**
-     * @var Basket
-     */
+    /** @var Basket */
     private $basket;
 
-    public function __construct($basket)
+    public function __construct(Basket $basket)
     {
         parent::__construct();
         $this->name   = __CLASS__;
         $this->basket = $basket;
     }
 
-    /**
-     * Will execute the needed function for each event.
-     */
-    public function apply()
+    public function apply(): void
     {
         // With storage, this would pass the info of the new basket to it.
     }
 
-    /**
-     * Returns the object in a readable way
-     *
-     * @return string
-     */
-    public function serialize()
+    public function serialize(): string
     {
         return json_encode([
             'id' => $this->id,
